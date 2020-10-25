@@ -1,23 +1,24 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
+// import DatePick from './components/DatePick';
+import NoteList from './components/notes/NoteList';
+import AddNote from './components/notes/AddNote';
+import uuid from 'react-uuid';
+
 import './App.css';
 
+
 function App() {
+
+  const [notes, setNotes] = useState([]);
+  
+  const addNote = (note) => {
+    setNotes([...notes, { id: uuid(), noteTitle: note.title, noteDesc: note.desc, noteUpdated: note.date} ])
+  }
+ 
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <AddNote addNoteEvent={addNote} />
+      <NoteList notesList={notes}/>
     </div>
   );
 }
